@@ -1,0 +1,45 @@
+# =============================================================================
+# Render Blueprint for Pocket Smart AI (LITE)
+#
+# Deploy: Render dashboard -> New -> Blueprint -> pick this repository.
+# Then set GROQ_API_KEY when prompted (it is marked sync: false on purpose,
+# so the secret is never stored in git).
+# =============================================================================
+services:
+  - type: web
+    name: pocket-smart-ai-lite
+    runtime: python
+    plan: free
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
+    healthCheckPath: /api/health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false            # set this in the dashboard - never in git
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: SECRET_KEY
+        generateValue: true    # Render creates a strong random value
+      - key: FLASK_DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.12"
+
+# -----------------------------------------------------------------------------
+# NOTE about persistence on the FREE plan
+# Render's free plan does not support persistent disks, so the SQLite chat
+# history and the cached PDF index live in the service's ephemeral
+# filesystem and reset on every deploy / restart / spin-down. That is fine
+# for a demo: the app always recreates them on boot.
+#
+# To keep history and the PDF index across restarts, upgrade the plan and add
+# a disk, then point the app at it with POCKET_AI_STORAGE_DIR:
+#
+#     disk:
+#       name: pocket-smart-ai-lite-data
+#       mountPath: /opt/render/project/src/storage
+#       sizeGB: 1
+#     envVars:
+#       - key: POCKET_AI_STORAGE_DIR
+#         value: /opt/render/project/src/storage
+# -----------------------------------------------------------------------------

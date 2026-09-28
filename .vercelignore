@@ -1,0 +1,21 @@
+# Keep the Vercel upload bundle minimal - none of this is needed at runtime.
+# (Templates, static files, core/, modules/, config.py, app.py and
+#  requirements.txt are intentionally NOT ignored.)
+.git/
+.github/
+venv/
+.venv/
+.venv-lite/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.vercel/
+data/*
+uploads/*
+tests/
+README.md
+Procfile
+render.yaml
+.env
+.env.local
+*.log

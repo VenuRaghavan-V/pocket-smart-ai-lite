@@ -1,0 +1,35 @@
+# =============================================================================
+# Pocket Smart AI (LITE) - requirements.txt
+#
+# Sized to stay far inside the 500 MB bundle limit of Vercel Python
+# functions (and Render's build limits).
+#
+#   REMOVED (this was the size problem)     REPLACED BY
+#   torch                ~700 MB - 2 GB     -
+#   sentence-transformers ~15 MB + torch    modules/vector_store.py (pure Python BM25)
+#   faiss-cpu            ~30 MB             -
+#   numpy                ~20 MB             -
+#   PyPDF2 (deprecated)  ~0.2 MB            pypdf (successor, pure Python)
+#
+# Real measured installed size of this file is documented in README.md.
+# =============================================================================
+
+# --- Core web app ---
+Flask==3.0.3
+Werkzeug==3.0.3
+python-dotenv==1.0.1
+gunicorn==22.0.0
+
+# --- Groq AI API client (1.x: no longer passes `proxies` to httpx) ---
+groq==1.7.0
+
+# --- RAG: PDF text extraction (pure Python - keeps the bundle tiny) ---
+pypdf==5.1.0
+
+# -----------------------------------------------------------------------------
+# OPTIONAL - only needed if you enable the server-side voice fallback in
+# core/voice_fallback.py (the browser Web Speech API is used by default and
+# needs none of these). Intentionally NOT installed so the deploy stays small.
+# -----------------------------------------------------------------------------
+# SpeechRecognition==3.10.4
+# pydub==0.25.1

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ app_name }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="floating-hearts">💛 ✨ 🌸 💛 ✨</div>
+
+<div class="app-shell">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="mascot-badge">
+      <img src="{{ url_for('static', filename='img/mascot.svg') }}" alt="{{ mascot_name }} the mascot" class="mascot-img">
+    </div>
+    <div class="header-text">
+      <h1>{{ app_name }}</h1>
+      <p id="statusLine">{{ mascot_name }} is ready to chat ✨</p>
+    </div>
+    <button id="pdfBtn" class="icon-btn" title="Upload a PDF for Q&amp;A">📎</button>
+    <button id="newChatBtn" class="icon-btn" title="New chat">🔄</button>
+  </header>
+
+  <!-- PDF upload bar (hidden until a file is chosen / while uploading) -->
+  <input type="file" id="pdfFileInput" accept="application/pdf" hidden>
+  <div id="pdfStatusBar" class="pdf-status-bar hidden">
+    <span id="pdfStatusText">No PDF uploaded yet.</span>
+  </div>
+
+  <!-- Chat window -->
+  <main id="chatWindow" class="chat-window">
+    <div class="bubble bot-bubble intro-bubble">
+      <img src="{{ url_for('static', filename='img/mascot.svg') }}" class="bubble-avatar" alt="">
+      <div class="bubble-content">
+        Hi! I'm <strong>{{ mascot_name }} 💛</strong><br>
+        Your cute Pocket Smart AI buddy.<br>
+        Ask me anything in Tamil or English! ✨🌸<br>
+        You can also tap 📎 to upload a PDF and ask questions about it.
+      </div>
+    </div>
+  </main>
+
+  <!-- Typing indicator -->
+  <div id="typingIndicator" class="typing-indicator hidden">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- Input bar -->
+  <footer class="input-bar">
+    <div class="lang-toggle" id="langToggle" title="Voice input language">
+      <button type="button" class="lang-option active" data-lang="en-IN">EN</button>
+      <button type="button" class="lang-option" data-lang="ta-IN">தமிழ்</button>
+    </div>
+
+    <input
+      id="textInput"
+      type="text"
+      placeholder="Type a message..."
+      autocomplete="off"
+    >
+
+    <button id="micBtn" class="mic-btn" title="Speak to {{ mascot_name }}">
+      <span class="mic-icon">🎙️</span>
+      <span class="mic-pulse"></span>
+    </button>
+
+    <button id="sendBtn" class="send-btn" title="Send">⚡</button>
+  </footer>
+
+  <div class="floating-bunny">🐰</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
