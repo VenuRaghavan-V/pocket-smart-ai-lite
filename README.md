@@ -11,6 +11,21 @@ frontend JavaScript are byte-for-byte the same files.
 
 ---
 
+## Quick deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FVenuRaghavan-V%2Fpocket-smart-ai-lite)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/VenuRaghavan-V/pocket-smart-ai-lite)
+
+Both buttons import this repository directly. **Vercel** needs no build
+configuration (Flask is auto-detected from `requirements.txt` + `app.py`) and
+will ask you to add `GROQ_API_KEY` (plus `MAX_UPLOAD_MB=4`) as environment
+variables. **Render** reads `render.yaml` and prompts for `GROQ_API_KEY`
+(`sync: false`, so it is never stored in git). Full step-by-step instructions
+are in sections 3 and 4 below.
+
+---
+
 ## 1. Why a LITE build — measured size budget
 
 The full build pinned `sentence-transformers`, which pulls in **PyTorch**, plus
